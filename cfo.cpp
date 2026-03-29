@@ -63,7 +63,8 @@
 
 //################################### GLOBAL DATA ###################################
 
-
+	bool containsCode = false;
+	bool containsNotes = false;
 
 //##################################################################################
 
@@ -163,6 +164,10 @@ bool compressFile ( string & fileName )
 	command += "_";
 	dateString = d.appStr ( );
 	command += dateString;
+	if ( containsCode == true )
+		command += "(CODE)";
+	if ( containsNotes = true )
+		command += "(NOTES)";
 	command += ".7z";
 	command += "\" \"";
 	command += fileName;
@@ -203,12 +208,6 @@ bool compressFile ( string & fileName )
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 bool readCLP ( int numArgs , char * args [ ] )
 { 
-	
-	return true;
-	//Check for the right number of words
-	if ( numArgs < 2 )
-		return false;
-
 	int i = 1;  
 
 	//Get the options #############
@@ -219,6 +218,18 @@ bool readCLP ( int numArgs , char * args [ ] )
 		{
 			//regexPatterns.push_back ( args [ i + 1 ] );
 			i += 2;
+		}
+		else if ( strcmp ( args [ i ] , "-c" ) == 0 )  
+		{
+			//regexPatterns.push_back ( args [ i + 1 ] );
+			containsCode = true;
+			i ++;
+		}
+		else if ( strcmp ( args [ i ] , "-n" ) == 0 )  
+		{
+			//regexPatterns.push_back ( args [ i + 1 ] );
+			containsNotes = true;
+			i ++;
 		}
 		else 
 			i ++;
